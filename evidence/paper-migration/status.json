@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "study": "utr-model-selection",
+  "task": "historical-evidence manuscript migration (LaTeX paper from imported original results)",
+  "author_session": {
+    "agent": "paper-author",
+    "model": "claude-opus-5-5",
+    "session_id": "5b2a6d85-2616-43fe-bdde-40dd448ad762"
+  },
+  "stage": "complete",
+  "updated_at_utc": "2026-10-06T10:55:24+00:00",
+  "stages": [
+    {
+      "stage": "evidence_read",
+      "status": "complete",
+      "note": "Read article/original.md, article/published-original.md, companion/README.md, companion/PROTOCOL.md, companion/NOTICE.md, evidence/import-manifest.json, evidence/migration-audit.json, scaffold; archived results read in memory from downloads/utr-baselines-results.zip (no extraction)."
+    },
+    {
+      "stage": "draft_built",
+      "status": "complete",
+      "note": "make paper-imported builds paper/build/main.pdf (24 pages), 0 LaTeX and 0 BibTeX warnings; extraction cross-check 0 mismatches; all pages rendered with pdftoppm at 40-50 dpi and inspected by the author; layout fixes applied (stacked intervals, float placement, listing)."
+    },
+    {
+      "stage": "independent_review",
+      "status": "complete",
+      "note": "One independent Claude Opus reviewer instance; review.md: 0 blocking, 3 major, 12 minor, 8 nits; reviewer viewed all 24 pages at 50 dpi plus crops"
+    },
+    {
+      "stage": "review_fixes",
+      "status": "complete",
+      "note": "All 23 findings dispositioned in review-disposition.md (22 fixed, F12 partly addressed). Rebuilt with 0 LaTeX and 0 BibTeX warnings; changed pages inspected."
+    }
+  ],
+  "no_new_experiments": true,
+  "fresh_reproduction": "pending (protocol.md is an unconfigured, unapproved scaffold; not executed)",
+  "blockers": [],
+  "paper": {
+    "source": "paper/main.tex",
+    "pdf": "paper/build/main.pdf",
+    "pages": 24,
+    "pdf_sha256": "67f753f409f551c069afe317203cb64f55dc50030720320b4e011282f397bf95",
+    "build": "make paper-imported"
+  },
+  "open_owner_decisions": [
+    "author list",
+    "companion licence",
+    "redistribution of the six example records and the eGFP tail (dataset licence 'unknown')",
+    "optional larger-font re-export of the flowchart"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "archive": "downloads/utr-baselines-results.zip",
+  "archive_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9",
+  "cross_check_against_article_values": "Table 2 (all cells), Table 3 (all cells and verdicts), read-depth and family numbers, dependence and resource macros",
+  "cross_check_mismatches": [],
+  "generated": [
+    "macros.tex",
+    "tab_cleanroom.tex",
+    "tab_comparisons.tex",
+    "tab_comparisons_all.tex",
+    "tab_composition.tex",
+    "tab_depth.tex",
+    "tab_examples.tex",
+    "tab_methods.tex",
+    "tab_parity.tex",
+    "tab_perlib.tex",
+    "tab_runlog.tex",
+    "tab_secondary.tex",
+    "tab_seeds.tex",
+    "tab_verify.tex"
+  ],
+  "kind": "formatting/extraction only; no recomputation",
+  "members_read_in_memory": {
+    "utr-baselines-results/receipts/clean-room/compare-with-original.json": "8ce81945fbbbcfc06fb25bb9b45eb30b98044f27b4e4c1af3a884daadc365a10",
+    "utr-baselines-results/run/embed.json": "fd715d7607c10a849bf8b50c738e762652449f3969a161bef08559da301ae467",
+    "utr-baselines-results/run/failures.json": "d25a7b6bd5f96f45aed9d19624ced30683d7370bb6e8e91845f2663a941a1f81",
+    "utr-baselines-results/run/metrics.json": "02f78482017161a3400535a5589739415ee22d97cb41e91fef70dfca7066c879",
+    "utr-baselines-results/run/prepare.json": "08ece23dbc3bc26a991c9f89a81a71398d71931479001734a67b730b04a95dc3",
+    "utr-baselines-results/run/run-all.log": "666984292aa2d9f867e1a15ff485e3d328fa1d9035d24a35b792fa7522debbef",
+    "utr-baselines-results/run/run-log.json": "6d4d5c2d6701999ecb98ab327ebf2b8a3bd02e89c261b4d66820c696486af16a",
+    "utr-baselines-results/run/verify.json": "8d178a823613f31e0fa8cb3d582547288fe1ffba620051d87ecb5172363e6f62"
+  },
+  "schema_version": 1
+}

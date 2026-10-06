@@ -1,0 +1,469 @@
+{
+  "schema_version": 1,
+  "status": "historical_imported: every value comes from the 2026-09-30 companion run (results archive) or the cited literature; nothing was recomputed or reproduced during migration",
+  "claims": [
+    {
+      "id": "DATA",
+      "claim": "100,017 designed records; constant 25-nt leader and 780-nt tail; exact GEO join; split counts 70,011/15,003/15,003 and 69,996/15,017/15,004",
+      "manuscript": "sec:data, sec:splits",
+      "evidence_class": "companion_computed",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/prepare.json",
+          "pointer": "$.checks, $.split_counts_full, $.library_counts",
+          "sha256": "08ece23dbc3bc26a991c9f89a81a71398d71931479001734a67b730b04a95dc3",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        }
+      ]
+    },
+    {
+      "id": "LIBRARY",
+      "claim": "Library composition: 35,212 human 5'UTR fragments, 3,577 ClinVar variants, 80 trajectories / 7,526 UTRs; two undocumented labels; single measurement; chemistry not stated",
+      "manuscript": "sec:data",
+      "evidence_class": "literature + article text",
+      "evidence": [
+        {
+          "artifact": "article/published-original.md",
+          "pointer": "section 'The assay measures ribosome loading...'",
+          "sha256": "3705cd10d8f8fb42ef305863d385b196f8095a01ba739a48329f5d1e3ba8572f",
+          "note": "byte-identical copy of the published article; link-adjusted copy at article/original.md"
+        }
+      ]
+    },
+    {
+      "id": "REPLAY",
+      "claim": "Full-sequence composition replay matches insert-only (max diff < 0.001 MRL; MSE 1.914) and the published rewire-benchmarks MSE 1.914439715839851",
+      "manuscript": "sec:data, tab:verify",
+      "evidence_class": "companion_computed",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/verify.json",
+          "pointer": "$.checks[4]",
+          "sha256": "8d178a823613f31e0fa8cb3d582547288fe1ffba620051d87ecb5172363e6f62",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        },
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/metrics.json",
+          "pointer": "$.splits.*.methods.comp_full_replay",
+          "sha256": "02f78482017161a3400535a5589739415ee22d97cb41e91fef70dfca7066c879",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        }
+      ]
+    },
+    {
+      "id": "DEPENDENCE",
+      "claim": "33,575 families; 79.3% of random-split test records have a relative in training; ICC 0.495; largest family 14,101 records (14.1%), mean MRL 6.59 vs 5.74",
+      "manuscript": "sec:splits",
+      "evidence_class": "companion_computed",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/metrics.json",
+          "pointer": "$.dependence",
+          "sha256": "02f78482017161a3400535a5589739415ee22d97cb41e91fef70dfca7066c879",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        },
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/failures.json",
+          "pointer": "$.largest_component",
+          "sha256": "d25a7b6bd5f96f45aed9d19624ced30683d7370bb6e8e91845f2663a941a1f81",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        }
+      ]
+    },
+    {
+      "id": "BASE-RATES",
+      "claim": "High-MRL cut-offs 7.402 (grouped) and 7.360 (random); test base rates 0.055 and 0.095",
+      "manuscript": "sec:metrics",
+      "evidence_class": "companion_computed",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/metrics.json",
+          "pointer": "$.splits.*.high_mrl_cutoff, test_base_rate",
+          "sha256": "02f78482017161a3400535a5589739415ee22d97cb41e91fef70dfca7066c879",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        }
+      ]
+    },
+    {
+      "id": "T2",
+      "claim": "Every method on both splits: MSE [CI], R2, P@150 [CI], fit time, peak memory",
+      "manuscript": "tab:methods",
+      "evidence_class": "companion_computed",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/metrics.json",
+          "pointer": "$.splits.*.methods.*",
+          "sha256": "02f78482017161a3400535a5589739415ee22d97cb41e91fef70dfca7066c879",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        },
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/failures.json",
+          "pointer": "$.*.cnn_device_parity.*.0.seconds_this_seed",
+          "sha256": "d25a7b6bd5f96f45aed9d19624ced30683d7370bb6e8e91845f2663a941a1f81",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        }
+      ]
+    },
+    {
+      "id": "T3",
+      "claim": "Paired differences and prespecified verdicts (10 headline comparisons; 22 in appendix)",
+      "manuscript": "tab:comparisons, tab:comparisons-all",
+      "evidence_class": "companion_computed",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/metrics.json",
+          "pointer": "$.splits.*.comparisons",
+          "sha256": "02f78482017161a3400535a5589739415ee22d97cb41e91fef70dfca7066c879",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        }
+      ]
+    },
+    {
+      "id": "HEADLINE-COUNTS",
+      "claim": "Top-150 counts: grouped CNN 86 vs cheap 83; random 118 vs 87 (precision x 150)",
+      "manuscript": "sec:main, abstract",
+      "evidence_class": "companion_computed",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/metrics.json",
+          "pointer": "$.splits.*.methods.{cnn,cheap_combined}.precision_at_k",
+          "sha256": "02f78482017161a3400535a5589739415ee22d97cb41e91fef70dfca7066c879",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        }
+      ]
+    },
+    {
+      "id": "SEEDS",
+      "claim": "Seed ranges: grouped CNN MSE 0.559-0.570, P@150 0.533-0.580; UTR-LM CNN 0.538-0.570",
+      "manuscript": "tab:seeds, sec:main",
+      "evidence_class": "companion_computed",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/metrics.json",
+          "pointer": "$.splits.*.methods.{cnn,utrlm_cnn}.per_seed",
+          "sha256": "02f78482017161a3400535a5589739415ee22d97cb41e91fef70dfca7066c879",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        }
+      ]
+    },
+    {
+      "id": "EMBED",
+      "claim": "UTR-LM checkpoint, 1,208,043 parameters, MLM accuracy 0.416 vs majority 0.329, 134.8 s embedding, 1.76 GB peak, 1.28 GB cache",
+      "manuscript": "sec:models, sec:cost",
+      "evidence_class": "companion_computed",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/embed.json",
+          "pointer": "whole file",
+          "sha256": "fd715d7607c10a849bf8b50c738e762652449f3969a161bef08559da301ae467",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        }
+      ]
+    },
+    {
+      "id": "DEVICE",
+      "claim": "UTR-LM MPS vs CPU: max abs diff 7.6 on 64 inserts; MLM 0.412 vs 0.335; CNN validation MSE parity within ~3e-8 for 12 fits",
+      "manuscript": "sec:device, tab:parity",
+      "evidence_class": "companion_computed",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/receipts/mps-vs-cpu-utrlm-receipt.txt",
+          "pointer": "lines 3-5",
+          "sha256": "31afadea432eff30b64830dd9816ae779206c1d4aa4dcb53db556b6284e70973",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        },
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/failures.json",
+          "pointer": "$.*.cnn_device_parity",
+          "sha256": "d25a7b6bd5f96f45aed9d19624ced30683d7370bb6e8e91845f2663a941a1f81",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        }
+      ]
+    },
+    {
+      "id": "COST",
+      "claim": "Whole run 3,417 s; per-step times; ridge 15-21 s; CNN seeds 174-313 s; three-seed totals 588/733 and 876/777 s; CPU epoch 151 s vs MPS 11 s",
+      "manuscript": "sec:cost, tab:runlog",
+      "evidence_class": "companion_computed",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/run-all.log",
+          "pointer": "final /usr/bin/time block",
+          "sha256": "666984292aa2d9f867e1a15ff485e3d328fa1d9035d24a35b792fa7522debbef",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        },
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/run-log.json",
+          "pointer": "$.steps",
+          "sha256": "6d4d5c2d6701999ecb98ab327ebf2b8a3bd02e89c261b4d66820c696486af16a",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        },
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/metrics.json",
+          "pointer": "$.splits.*.methods.*.fit_seconds",
+          "sha256": "02f78482017161a3400535a5589739415ee22d97cb41e91fef70dfca7066c879",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        },
+        {
+          "artifact": "article/published-original.md",
+          "pointer": "section 'Accuracy cost minutes and gigabytes' (CPU epoch probe)",
+          "sha256": "3705cd10d8f8fb42ef305863d385b196f8095a01ba739a48329f5d1e3ba8572f",
+          "note": "byte-identical copy of the published article; link-adjusted copy at article/original.md"
+        }
+      ]
+    },
+    {
+      "id": "T4",
+      "claim": "Declared examples: six grouped-test records with measured MRL and four predictions",
+      "manuscript": "tab:examples",
+      "evidence_class": "companion_computed",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/metrics.json",
+          "pointer": "$.splits.grouped.examples",
+          "sha256": "02f78482017161a3400535a5589739415ee22d97cb41e91fef70dfca7066c879",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        }
+      ]
+    },
+    {
+      "id": "EXAMPLE-NOTES",
+      "claim": "Sequence features of the examples (ATG positions, Kozak ACC, C>T at position 24) and the SNV change analysis",
+      "manuscript": "sec:examples",
+      "evidence_class": "article text (derived from the inserts in tab:examples)",
+      "evidence": [
+        {
+          "artifact": "article/published-original.md",
+          "pointer": "section 'Six declared examples...'",
+          "sha256": "3705cd10d8f8fb42ef305863d385b196f8095a01ba739a48329f5d1e3ba8572f",
+          "note": "byte-identical copy of the published article; link-adjusted copy at article/original.md"
+        }
+      ]
+    },
+    {
+      "id": "DEPTH",
+      "claim": "Read-depth quartile MSE (grouped CNN 0.785 vs 0.419; reference 1.024 vs 0.606); 289 errors > 2 MRL with median 485 reads vs 616",
+      "manuscript": "sec:errors, tab:depth",
+      "evidence_class": "companion_computed",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/metrics.json",
+          "pointer": "$.splits.*.*_by_read_depth_quartile",
+          "sha256": "02f78482017161a3400535a5589739415ee22d97cb41e91fef70dfca7066c879",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        },
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/failures.json",
+          "pointer": "$.grouped.cnn_abs_error_over_2_*",
+          "sha256": "d25a7b6bd5f96f45aed9d19624ced30683d7370bb6e8e91845f2663a941a1f81",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        }
+      ]
+    },
+    {
+      "id": "FAMILY",
+      "claim": "step_worst_to_best_allow_uatg: CNN 1.134 vs 0.405; 82% of CNN SSE from a 49-record family (MSE 3.98 vs 0.59); random split opposite (0.314 vs 0.723)",
+      "manuscript": "sec:errors, tab:perlib",
+      "evidence_class": "companion_computed",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/failures.json",
+          "pointer": "$.*.step_worst_allow_uatg",
+          "sha256": "d25a7b6bd5f96f45aed9d19624ced30683d7370bb6e8e91845f2663a941a1f81",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        },
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/metrics.json",
+          "pointer": "$.splits.*.per_library_mse",
+          "sha256": "02f78482017161a3400535a5589739415ee22d97cb41e91fef70dfca7066c879",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        },
+        {
+          "artifact": "article/published-original.md",
+          "pointer": "section 'Errors concentrate...' (45 of the 49 family records contain an ATG: article text only)",
+          "sha256": "3705cd10d8f8fb42ef305863d385b196f8095a01ba739a48329f5d1e3ba8572f",
+          "note": "byte-identical copy of the published article; link-adjusted copy at article/original.md"
+        }
+      ]
+    },
+    {
+      "id": "VERIFY",
+      "claim": "verify.py checks all passed; clean-environment rerun identical predictions (grouped CNN MSE 0.559972 both times)",
+      "manuscript": "sec:provenance, tab:verify, tab:cleanroom",
+      "evidence_class": "companion_computed",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/verify.json",
+          "pointer": "$.checks",
+          "sha256": "8d178a823613f31e0fa8cb3d582547288fe1ffba620051d87ecb5172363e6f62",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        },
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/receipts/clean-room/compare-with-original.json",
+          "pointer": "whole file",
+          "sha256": "8ce81945fbbbcfc06fb25bb9b45eb30b98044f27b4e4c1af3a884daadc365a10",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        }
+      ]
+    },
+    {
+      "id": "PROTOCOL",
+      "claim": "Protocol registered 08:56:32Z, amended 09:00:14Z before test scoring (example rule only), nine clarifications after scoring",
+      "manuscript": "sec:methods",
+      "evidence_class": "registration record",
+      "evidence": [
+        {
+          "artifact": "companion/PROTOCOL.md",
+          "pointer": "header and clarifications",
+          "sha256": "2be22d7a8eba6d32c47ebd5621566613561011e72516d910633f73b503d08326"
+        },
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/receipts/protocol-registration.log",
+          "pointer": "whole file",
+          "sha256": "ded4efc59af6500f40edd70ec03038b1e53e80d5bd98bf13a9df8525039df573",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        }
+      ]
+    },
+    {
+      "id": "ORTHRUS",
+      "claim": "Orthrus excluded: mamba-ssm build failed without CUDA",
+      "manuscript": "sec:models",
+      "evidence_class": "execution record",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/receipts/orthrus-install-attempt/install-attempt-2.log",
+          "pointer": "whole file",
+          "sha256": "2ae41924c662887624ce1ae43ba970b352d2dfeafa2a973c26bd30697a574d24",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        }
+      ]
+    },
+    {
+      "id": "TESTS",
+      "claim": "pytest 10 passed, 1 skipped (no UTR_WORK); 11 passed with UTR_WORK; smoke 213 s",
+      "manuscript": "app:repro",
+      "evidence_class": "execution record",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/receipts/environment-and-tests-receipt.txt",
+          "pointer": "whole file",
+          "sha256": "c5961096f4a7d25eeddb1a8864e4e5c8445cb2bfd459b3e5bdd5d3ead8a5c47f",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        }
+      ]
+    },
+    {
+      "id": "L-MRNABENCH",
+      "claim": "mRNABench compositional-split drops (0.34, 0.33, 0.17) and saved results (0.862, 0.788, 0.649, 0.821; 0.729, 0.619)",
+      "manuscript": "sec:background, sec:utrlm",
+      "evidence_class": "literature (not re-retrieved)",
+      "evidence": [
+        {
+          "artifact": "article/published-original.md",
+          "pointer": "sections 'Two splits...' and 'Frozen UTR-LM features...'",
+          "sha256": "3705cd10d8f8fb42ef305863d385b196f8095a01ba739a48329f5d1e3ba8572f",
+          "note": "byte-identical copy of the published article; link-adjusted copy at article/original.md"
+        }
+      ]
+    },
+    {
+      "id": "L-UTRLM",
+      "claim": "UTR-LM ablation: frozen + MLP Spearman 0.6 vs 0.962 fine-tuned",
+      "manuscript": "sec:background, sec:utrlm",
+      "evidence_class": "literature (not re-retrieved)",
+      "evidence": [
+        {
+          "artifact": "article/published-original.md",
+          "pointer": "section 'Frozen UTR-LM features...'",
+          "sha256": "3705cd10d8f8fb42ef305863d385b196f8095a01ba739a48329f5d1e3ba8572f",
+          "note": "byte-identical copy of the published article; link-adjusted copy at article/original.md"
+        }
+      ]
+    },
+    {
+      "id": "L-SAMPLE",
+      "claim": "Sample et al.: MRL definition; variant r2 0.555 across 1,597 SNV pairs; low-read noise",
+      "manuscript": "sec:background, sec:device",
+      "evidence_class": "literature (not re-retrieved)",
+      "evidence": [
+        {
+          "artifact": "article/published-original.md",
+          "pointer": "assay section; Variant effects paragraph",
+          "sha256": "3705cd10d8f8fb42ef305863d385b196f8095a01ba739a48329f5d1e3ba8572f",
+          "note": "byte-identical copy of the published article; link-adjusted copy at article/original.md"
+        }
+      ]
+    },
+    {
+      "id": "L-KAROLLUS",
+      "claim": "MPRA-trained models correlate 0.11-0.25 with six endogenous datasets",
+      "manuscript": "sec:limitations, fig:karollus",
+      "evidence_class": "literature (not re-retrieved)",
+      "evidence": [
+        {
+          "artifact": "article/published-original.md",
+          "pointer": "section 'What this evidence does not support'",
+          "sha256": "3705cd10d8f8fb42ef305863d385b196f8095a01ba739a48329f5d1e3ba8572f",
+          "note": "byte-identical copy of the published article; link-adjusted copy at article/original.md"
+        }
+      ]
+    },
+    {
+      "id": "L-CASTILLO",
+      "claim": "MRL omits the ribosome-free fraction",
+      "manuscript": "sec:background, sec:limitations",
+      "evidence_class": "literature (not re-retrieved)",
+      "evidence": [
+        {
+          "artifact": "article/published-original.md",
+          "pointer": "section 'What this evidence does not support'",
+          "sha256": "3705cd10d8f8fb42ef305863d385b196f8095a01ba739a48329f5d1e3ba8572f",
+          "note": "byte-identical copy of the published article; link-adjusted copy at article/original.md"
+        }
+      ]
+    },
+    {
+      "id": "FIGURES",
+      "claim": "Companion figures (paired differences, accuracy vs cost, error by library and depth) and flowchart",
+      "manuscript": "fig:paired, fig:cost, fig:errors, fig:flow",
+      "evidence_class": "companion_computed (figures)",
+      "evidence": [
+        {
+          "artifact": "article/assets/fig-paired-differences.png",
+          "pointer": "figure",
+          "sha256": "5d51e3ebac3a9da755ab096a4acd4bbb8ccf44d8e11f6fa14f5cf2a61b38375f"
+        },
+        {
+          "artifact": "article/assets/fig-accuracy-vs-cost.png",
+          "pointer": "figure",
+          "sha256": "11ffae6bb19ac8110eac66a817c266dc3c9cdcf4a6d6f6a8f9f3cc2781dedae0"
+        },
+        {
+          "artifact": "article/assets/fig-error-by-library-and-depth.png",
+          "pointer": "figure",
+          "sha256": "93e323dfcf5b6e8f2c061b841aa46db8fa3310b7db57cd433b057fb5522ce6ea"
+        },
+        {
+          "artifact": "article/assets/06-selection-flowchart.svg",
+          "pointer": "figure",
+          "sha256": "659892bbf16838d94f8c20b46da84fb80a979c494bab5abb4abf2a4dac91e11c"
+        }
+      ]
+    },
+    {
+      "id": "I-MAIN",
+      "claim": "Interpretation: CNN for MRL values on new families; no supported pick-list difference; frozen UTR-LM not justified on this evidence",
+      "manuscript": "abstract, sec:discussion",
+      "evidence_class": "interpretation",
+      "evidence": [
+        {
+          "artifact": "downloads/utr-baselines-results.zip!utr-baselines-results/run/metrics.json",
+          "pointer": "$.splits.*.comparisons",
+          "sha256": "02f78482017161a3400535a5589739415ee22d97cb41e91fef70dfca7066c879",
+          "container_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+        }
+      ]
+    }
+  ]
+}

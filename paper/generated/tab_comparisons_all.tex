@@ -1,0 +1,23 @@
+random & Composition & cheap combined & \ci{$-1.065$}{$-1.171$}{$-0.963$} & worse & \ci{$-0.253$}{$-0.336$}{$-0.141$} & worse \\
+random & 1--3-mer counts & cheap combined & \ci{$-0.375$}{$-0.406$}{$-0.348$} & worse & \ci{$-0.047$}{$-0.119$}{$+0.108$} & no supported difference \\
+random & Positional one-hot & cheap combined & \ci{$-0.920$}{$-1.002$}{$-0.836$} & worse & \ci{$-0.220$}{$-0.336$}{$-0.133$} & worse \\
+random & uAUG/Kozak features & cheap combined & \ci{$-0.431$}{$-0.467$}{$-0.398$} & worse & \ci{$-0.240$}{$-0.373$}{$-0.039$} & worse \\
+random & CNN & cheap combined & \ci{$+0.422$}{$+0.363$}{$+0.488$} & adds practical value & \ci{$+0.207$}{$+0.124$}{$+0.292$} & adds practical value \\
+random & UTR-LM mean + ridge & cheap combined & \ci{$-0.335$}{$-0.371$}{$-0.305$} & worse & \ci{$-0.120$}{$-0.203$}{$-0.015$} & worse \\
+random & UTR-LM per-position + ridge & cheap combined & \ci{$-0.090$}{$-0.144$}{$-0.033$} & worse & \ci{$-0.067$}{$-0.141$}{$+0.056$} & no supported difference \\
+random & UTR-LM + CNN & cheap combined & \ci{$+0.443$}{$+0.388$}{$+0.502$} & adds practical value & \ci{$+0.080$}{$+0.000$}{$+0.208$} & no supported difference \\
+random & UTR-LM mean + ridge & CNN & \ci{$-0.757$}{$-0.812$}{$-0.698$} & worse & \ci{$-0.327$}{$-0.392$}{$-0.215$} & worse \\
+random & UTR-LM per-position + ridge & CNN & \ci{$-0.512$}{$-0.536$}{$-0.484$} & worse & \ci{$-0.273$}{$-0.343$}{$-0.155$} & worse \\
+random & UTR-LM + CNN & CNN & \ci{$+0.021$}{$+0.009$}{$+0.034$} & below practical threshold & \ci{$-0.127$}{$-0.179$}{$-0.023$} & worse \\
+\midrule
+grouped & Composition & cheap combined & \ci{$-1.112$}{$-1.199$}{$-1.035$} & worse & \ci{$-0.320$}{$-0.453$}{$-0.195$} & worse \\
+grouped & 1--3-mer counts & cheap combined & \ci{$-0.386$}{$-0.421$}{$-0.349$} & worse & \ci{$-0.013$}{$-0.107$}{$+0.085$} & no supported difference \\
+grouped & Positional one-hot & cheap combined & \ci{$-0.992$}{$-1.055$}{$-0.932$} & worse & \ci{$-0.193$}{$-0.338$}{$-0.075$} & worse \\
+grouped & uAUG/Kozak features & cheap combined & \ci{$-0.417$}{$-0.460$}{$-0.372$} & worse & \ci{$-0.247$}{$-0.375$}{$-0.128$} & worse \\
+grouped & CNN & cheap combined & \ci{$+0.216$}{$+0.176$}{$+0.252$} & adds practical value & \ci{$+0.020$}{$-0.088$}{$+0.132$} & no supported difference \\
+grouped & UTR-LM mean + ridge & cheap combined & \ci{$-0.363$}{$-0.400$}{$-0.327$} & worse & \ci{$-0.207$}{$-0.335$}{$-0.073$} & worse \\
+grouped & UTR-LM per-position + ridge & cheap combined & \ci{$-0.244$}{$-0.272$}{$-0.216$} & worse & \ci{$-0.173$}{$-0.278$}{$-0.047$} & worse \\
+grouped & UTR-LM + CNN & cheap combined & \ci{$+0.206$}{$+0.173$}{$+0.237$} & adds practical value & \ci{$+0.013$}{$-0.087$}{$+0.149$} & no supported difference \\
+grouped & UTR-LM mean + ridge & CNN & \ci{$-0.579$}{$-0.624$}{$-0.531$} & worse & \ci{$-0.227$}{$-0.357$}{$-0.107$} & worse \\
+grouped & UTR-LM per-position + ridge & CNN & \ci{$-0.460$}{$-0.501$}{$-0.418$} & worse & \ci{$-0.193$}{$-0.302$}{$-0.062$} & worse \\
+grouped & UTR-LM + CNN & CNN & \ci{$-0.010$}{$-0.034$}{$+0.016$} & no supported difference & \ci{$-0.007$}{$-0.103$}{$+0.122$} & no supported difference \\

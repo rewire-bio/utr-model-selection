@@ -1,0 +1,143 @@
+{
+  "scope": "Read-only archived prediction population, finite-value and source-label metric checks; no fitting or bootstrap rerun",
+  "archive_sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9",
+  "source_sha256": "8b8c57581d472e89a21f8b468b3b0599f6c235c01423264561e6c302d78927d4",
+  "records_sha256": "9f46bbb9bed60764db6ccb84eadbbc576a967bbdb69a3eb6d5fd4c20f2826e0b",
+  "independent_bfs_components_and_grouped_allocation_match": true,
+  "checks": [
+    {
+      "split": "historical",
+      "method": "train_mean",
+      "validation_test_predictions": 30006,
+      "test_predictions": 15003
+    },
+    {
+      "split": "historical",
+      "method": "comp_full_replay",
+      "validation_test_predictions": 30006,
+      "test_predictions": 15003
+    },
+    {
+      "split": "historical",
+      "method": "comp_utr",
+      "validation_test_predictions": 30006,
+      "test_predictions": 15003
+    },
+    {
+      "split": "historical",
+      "method": "kmer_utr",
+      "validation_test_predictions": 30006,
+      "test_predictions": 15003
+    },
+    {
+      "split": "historical",
+      "method": "onehot_pos",
+      "validation_test_predictions": 30006,
+      "test_predictions": 15003
+    },
+    {
+      "split": "historical",
+      "method": "annot",
+      "validation_test_predictions": 30006,
+      "test_predictions": 15003
+    },
+    {
+      "split": "historical",
+      "method": "cheap_combined",
+      "validation_test_predictions": 30006,
+      "test_predictions": 15003
+    },
+    {
+      "split": "historical",
+      "method": "cnn",
+      "validation_test_predictions": 30006,
+      "test_predictions": 15003
+    },
+    {
+      "split": "historical",
+      "method": "utrlm_mean_ridge",
+      "validation_test_predictions": 30006,
+      "test_predictions": 15003
+    },
+    {
+      "split": "historical",
+      "method": "utrlm_pos_ridge",
+      "validation_test_predictions": 30006,
+      "test_predictions": 15003
+    },
+    {
+      "split": "historical",
+      "method": "utrlm_cnn",
+      "validation_test_predictions": 30006,
+      "test_predictions": 15003
+    },
+    {
+      "split": "grouped",
+      "method": "train_mean",
+      "validation_test_predictions": 30021,
+      "test_predictions": 15004
+    },
+    {
+      "split": "grouped",
+      "method": "comp_full_replay",
+      "validation_test_predictions": 30021,
+      "test_predictions": 15004
+    },
+    {
+      "split": "grouped",
+      "method": "comp_utr",
+      "validation_test_predictions": 30021,
+      "test_predictions": 15004
+    },
+    {
+      "split": "grouped",
+      "method": "kmer_utr",
+      "validation_test_predictions": 30021,
+      "test_predictions": 15004
+    },
+    {
+      "split": "grouped",
+      "method": "onehot_pos",
+      "validation_test_predictions": 30021,
+      "test_predictions": 15004
+    },
+    {
+      "split": "grouped",
+      "method": "annot",
+      "validation_test_predictions": 30021,
+      "test_predictions": 15004
+    },
+    {
+      "split": "grouped",
+      "method": "cheap_combined",
+      "validation_test_predictions": 30021,
+      "test_predictions": 15004
+    },
+    {
+      "split": "grouped",
+      "method": "cnn",
+      "validation_test_predictions": 30021,
+      "test_predictions": 15004
+    },
+    {
+      "split": "grouped",
+      "method": "utrlm_mean_ridge",
+      "validation_test_predictions": 30021,
+      "test_predictions": 15004
+    },
+    {
+      "split": "grouped",
+      "method": "utrlm_pos_ridge",
+      "validation_test_predictions": 30021,
+      "test_predictions": 15004
+    },
+    {
+      "split": "grouped",
+      "method": "utrlm_cnn",
+      "validation_test_predictions": 30021,
+      "test_predictions": 15004
+    }
+  ],
+  "max_abs_metric_difference": 0,
+  "all_passed": true
+}

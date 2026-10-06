@@ -4,7 +4,8 @@ data:
 	uv run --frozen python scripts/data.py --fetch
 
 test:
-	uv run --frozen python -m unittest discover -s tests -v
+	uv run --project companion --frozen --extra test pytest -q companion
+	python3 scripts/check_archives.py
 
 smoke: data test
 	uv run --frozen python scripts/experiment.py --config configs/smoke.json --output results/smoke

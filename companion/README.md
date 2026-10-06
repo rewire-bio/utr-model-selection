@@ -102,3 +102,24 @@ CNN seed ranges (test MSE): historical one-hot 0.413–0.439, UTR-LM input 0.407
 ## Scope
 
 One reporter library, one cell line and one assay. A random split and a grouped split of the same library. The frozen checkpoint was not fine-tuned. Nothing here measures protein output, other reporters or endogenous mRNAs. See the article for the full limits.
+
+## Artifact safety (October 2026 maintenance)
+
+Use a fresh work directory for each run. `prepare`, `run-all`, `embed` and individual
+fits refuse to overwrite existing stage outputs. New embedding receipts bind the
+cache bytes to the exact prepared record file; fit receipts bind predictions to
+that same file. A changed or reordered record file requires a fresh embedding run.
+
+`evaluate` requires all eleven methods on both splits and complete, finite
+validation/test predictions, including every saved seed column. Historical
+receipts lack these new hashes; inspecting an intact historical work directory
+requires `evaluate --allow-legacy-artifacts --work PATH`. That explicit compatibility
+option retains population, completeness and finite-value validation, but cannot
+retroactively establish cache provenance. It must not be used to bypass a mismatch
+in a new run. The downloadable historical archives are unchanged.
+
+`verify.py` independently checks source checksums, declared full/smoke population,
+source labels/inserts, all registered methods and finite metric discrepancies.
+The full-run check also reconstructs the deterministic grouped allocation.
+The historical ten-test count above describes the original run; `make test` at
+the repository root runs the expanded maintained regression suite.

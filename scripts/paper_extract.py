@@ -387,10 +387,26 @@ def main() -> None:
         mism.append(f"example rules {rules}")
     (GEN / "macros.tex").write_text("".join(f"\\newcommand{{\\{k}}}{{{v}}}\n" for k, v in mac.items()))
 
+    # Keep the methods listing tied to the historical implementation, independent
+    # of line shifts in the maintained companion.
+    code_archive = "downloads/utr-baselines.zip"
+    code_member = "utr-baselines/utr_baselines.py"
+    if sha256((ROOT / code_archive).read_bytes()) != manifest[code_archive]:
+        sys.exit("historical code archive checksum mismatch")
+    with zipfile.ZipFile(ROOT / code_archive) as code_zip:
+        source = code_zip.read(code_member).decode()
+    start = source.index("def grouped_split(")
+    end = source.index("\ndef ", start + 1)
+    listing = source[start:end].rstrip() + "\n"
+    (GEN / "grouped_split.py").write_text(listing)
+
     receipt = {
         "schema_version": 1,
         "kind": "formatting/extraction only; no recomputation",
         "archive": ZIPPATH, "archive_sha256": manifest[ZIPPATH],
+        "code_listing": {"archive": code_archive, "archive_sha256": manifest[code_archive],
+                         "member": code_member, "function": "grouped_split",
+                         "sha256": sha256(listing.encode())},
         "members_read_in_memory": used,
         "cross_check_against_article_values": "Table 2 (all cells), Table 3 (all cells and verdicts), read-depth and family numbers, dependence and resource macros",
         "cross_check_mismatches": mism,

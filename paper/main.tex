@@ -656,11 +656,15 @@ Table~\ref{tab:seeds} (grouped one-hot CNN 0.559 to 0.570) is a reason to invest
 and local TeX Live. It verifies the archive and member digests, formats the tables in \m{paper/generated/}, converts
 the original flowchart SVG with \m{rsvg-convert}, and runs pdflatex, BibTeX and pdflatex twice. It performs no
 experiment, data download or environment creation. The receipt is \m{evidence/paper-migration/build-receipt.json}.
+The October 2026 repository audit added strict completeness, finite-value and artifact-provenance checks
+and automated regression tests to the maintained companion. These changes do not alter the archived
+measurements reported here. The original downloadable code remains preserved; the current maintained
+code is in \m{companion/}. This maintenance validation is not a new independent reproduction.
 
 \section{The grouped split}\label{app:code}
-Verbatim from lines 221--239 of \m{companion/utr\_baselines.py}; \m{GIANT\_FRACTION} is 0.01 and the seed is 20260930.
+Verbatim from \m{grouped\_split} in the archived \m{downloads/utr-baselines.zip}; \m{GIANT\_FRACTION} is 0.01 and the seed is 20260930.
 Components are built by linking records that share a GEO \m{mother} sequence or any identical 20-nt substring.
-\lstinputlisting[language=Python,firstline=221,lastline=239]{../companion/utr_baselines.py}
+\lstinputlisting[language=Python]{generated/grouped_split.py}
 
 \section{Supplementary tables}\label{app:supp}
 All values are formatted from the archived results without recomputation.

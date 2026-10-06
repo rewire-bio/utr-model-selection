@@ -169,6 +169,34 @@ def verify_inputs(inputs: Path) -> None:
 
 # ----------------------------------------------------------------------------- prepare
 
+def require_fresh(path: Path) -> None:
+    if path.exists() and (not path.is_dir() or any(path.iterdir())):
+        raise ValueError(f"Refusing to overwrite existing artifacts: {path}; use a new work directory")
+
+
+def validate_cache(work: Path) -> None:
+    receipt = json.loads((work / "embed.json").read_text())
+    if receipt.get("records_sha256") != sha256_file(work / "records.parquet"):
+        raise ValueError("Embedding cache does not match prepared records; embed into a fresh work directory")
+    for name in ("utrlm_mean.npy", "utrlm_pos.f16.npy"):
+        path = work / "cache" / name
+        if receipt.get("cache_sha256", {}).get(name) != sha256_file(path):
+            raise ValueError(f"Embedding cache checksum mismatch: {name}")
+
+
+def validate_predictions(records, predictions, split):
+    expected = records.loc[records[f"split_{split}"].isin(["validation", "test"]),
+                           ["source_index", f"split_{split}"]].set_index("source_index")
+    if predictions.source_index.duplicated().any() or set(predictions.source_index) != set(expected.index):
+        raise ValueError(f"{split}: prediction rows must match validation and test records exactly")
+    ordered = predictions.set_index("source_index").loc[expected.index]
+    if not np.array_equal(ordered["split"], expected[f"split_{split}"]):
+        raise ValueError(f"{split}: prediction split labels disagree with prepared records")
+    cols = [c for c in predictions if c == "prediction" or c.startswith("prediction_seed")]
+    if "prediction" not in cols or not np.isfinite(predictions[cols].to_numpy(dtype=float)).all():
+        raise ValueError(f"{split}: all prediction values must be finite")
+
+
 def historical_split(n: int) -> tuple[dict, str]:
     """mRNABench/rewirebench seed-2541 split over source row order."""
     from sklearn.model_selection import train_test_split
@@ -255,6 +283,7 @@ def icc1(values: np.ndarray, groups: np.ndarray) -> dict:
 
 
 def prepare(inputs: Path, work: Path, smoke: bool) -> dict:
+    require_fresh(work)
     verify_inputs(inputs)
     t0 = time.perf_counter()
     src = pd.read_parquet(inputs / "mrl-sample-designed.parquet", columns=["sequence", "target_mrl_designed"])
@@ -552,6 +581,9 @@ def utrlm_tokens(alphabet, inserts):
 
 
 def embed(inputs: Path, work: Path) -> dict:
+    require_fresh(work / "cache")
+    if (work / "embed.json").exists():
+        raise ValueError("Embedding receipt already exists; use a fresh work directory")
     import torch
     verify_inputs(inputs)
     torch.set_num_threads(min(8, os.cpu_count() or 1))
@@ -594,6 +626,8 @@ def embed(inputs: Path, work: Path) -> dict:
             "parameters": int(sum(p.numel() for p in model.parameters())),
             "mlm_masked_accuracy": mlm_acc, "majority_base_rate": majority,
             "load_seconds": load_s, "embed_seconds": time.perf_counter() - t1, "records": n,
+            "records_sha256": sha256_file(work / "records.parquet"),
+            "cache_sha256": {p.name: sha256_file(p) for p in cache.glob("utrlm_*")},
             "cache_bytes": {p.name: p.stat().st_size for p in cache.glob("utrlm_*")},
             "peak_rss_mb": peak_rss_mb()}
     write_json(work / "embed.json", info)
@@ -613,10 +647,16 @@ def fit(work: Path, split: str, method: str, max_epochs: int, seeds: list[int], 
     y = records.mrl.to_numpy(dtype=np.float64)
     inserts = records["insert"].to_numpy()
     out_dir = work / "runs" / split / method
+    require_fresh(out_dir)
+    if method in CNN_METHODS and (max_epochs < 1 or not seeds or seeds[0] != 0 or len(set(seeds)) != len(seeds)):
+        raise ValueError("CNN fits require positive epochs and unique seeds with prespecified seed 0 first")
+    if method in FROZEN_METHODS:
+        validate_cache(work)
     out_dir.mkdir(parents=True, exist_ok=True)
     t0 = time.perf_counter()
     info = {"protocol": PROTOCOL_ID, "split": split, "method": method, "n_train": len(tr),
-            "n_validation": len(va), "n_test": len(te)}
+            "n_validation": len(va), "n_test": len(te),
+            "records_sha256": sha256_file(work / "records.parquet")}
     preds = {}
     if method == "train_mean":
         m = float(y[tr].mean())
@@ -675,7 +715,9 @@ def fit(work: Path, split: str, method: str, max_epochs: int, seeds: list[int], 
     keep = np.concatenate([va, te])
     frame = pd.DataFrame({"source_index": records.source_index.to_numpy()[keep],
                           "split": records[col].to_numpy()[keep], **{k: v[keep] for k, v in preds.items()}})
+    validate_predictions(records, frame, split)
     frame.sort_values("source_index").to_parquet(out_dir / "predictions.parquet", index=False)
+    info["predictions_sha256"] = sha256_file(out_dir / "predictions.parquet")
     write_json(out_dir / "fit.json", info)
     print(f"{split}/{method}: val MSE {info['val_mse']:.4f} in {info['seconds']:.1f} s")
     return info
@@ -740,7 +782,7 @@ def ci(a) -> list:
     return [float(np.percentile(a, 2.5)), float(np.percentile(a, 97.5))]
 
 
-def evaluate(work: Path) -> dict:
+def evaluate(work: Path, allow_legacy_artifacts: bool = False) -> dict:
     records = pd.read_parquet(work / "records.parquet")
     results = {"protocol": PROTOCOL_ID, "thresholds": {"mse": MSE_THRESHOLD, "precision_at_1pct": PRECISION_THRESHOLD},
                "bootstraps": BOOTSTRAPS, "bootstrap_seed": BOOT_SEED, "splits": {}}
@@ -748,7 +790,7 @@ def evaluate(work: Path) -> dict:
         col = f"split_{split}"
         runs = work / "runs" / split
         if not runs.exists():
-            continue
+            raise ValueError(f"Missing registered split: {split}")
         test = records[records[col] == "test"].reset_index(drop=True)
         train_y = records.loc[records[col] == "train", "mrl"].to_numpy()
         y = test.mrl.to_numpy()
@@ -762,9 +804,19 @@ def evaluate(work: Path) -> dict:
         for m in ALL_METHODS:
             f = runs / m / "fit.json"
             if not f.exists():
-                continue
+                raise ValueError(f"Missing registered fit: {split}/{m}")
             fits[m] = json.loads(f.read_text())
+            if not np.isfinite(fits[m]["val_mse"]):
+                raise ValueError(f"Nonfinite validation MSE: {split}/{m}")
+            for key, path in (("records_sha256", work / "records.parquet"),
+                              ("predictions_sha256", runs / m / "predictions.parquet")):
+                recorded = fits[m].get(key)
+                if recorded is None and allow_legacy_artifacts:
+                    continue
+                if recorded != sha256_file(path):
+                    raise ValueError(f"{split}/{m}: missing or mismatched {key}; only historical receipts without hashes accept --allow-legacy-artifacts")
             pr = pd.read_parquet(runs / m / "predictions.parquet")
+            validate_predictions(records, pr, split)
             pr = test[["source_index"]].merge(pr, on="source_index", how="left", validate="one_to_one")
             preds[m] = pr
         split_out = {"n_test": len(test), "test_components": n_comp, "high_mrl_cutoff": high_cut,
@@ -892,6 +944,7 @@ def _print_summary(results):
 # ----------------------------------------------------------------------------- run-all
 
 def run_all(inputs: Path, work: Path, smoke: bool, allow_mps: bool) -> None:
+    require_fresh(work)
     me = [sys.executable, str(Path(__file__).resolve())]
     log = {"hardware": hardware(), "smoke": smoke, "steps": []}
 
@@ -925,6 +978,7 @@ def main(argv=None):
     a.add_argument("--max-epochs", type=int, default=20); a.add_argument("--seeds", type=int, nargs="+", default=SEEDS)
     a.add_argument("--cpu-only", action="store_true")
     a = sub.add_parser("evaluate"); a.add_argument("--work", type=Path, required=True)
+    a.add_argument("--allow-legacy-artifacts", action="store_true", help="Allow historical receipts without hashes; retain strict completeness and finite-value checks")
     a = sub.add_parser("run-all"); a.add_argument("--inputs", type=Path, required=True)
     a.add_argument("--work", type=Path, required=True); a.add_argument("--smoke", action="store_true")
     a.add_argument("--cpu-only", action="store_true")
@@ -938,7 +992,7 @@ def main(argv=None):
     elif args.cmd == "fit":
         fit(args.work, args.split, args.method, args.max_epochs, args.seeds, not args.cpu_only)
     elif args.cmd == "evaluate":
-        evaluate(args.work)
+        evaluate(args.work, args.allow_legacy_artifacts)
     elif args.cmd == "run-all":
         run_all(args.inputs, args.work, args.smoke, not args.cpu_only)
 

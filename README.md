@@ -16,9 +16,12 @@ and compiles, and runs no experiment, data download or environment creation). Pr
 is in [`evidence/paper-migration/`](evidence/paper-migration/): claims ledger, content-coverage map, build
 receipt, independent AI review and status.
 
-Independent reproduction is **pending**: `protocol.md` is an unconfigured, unapproved scaffold and has not been
-executed. The generic harness configuration must not be used to claim verified results. Follow the companion
+Independent reproduction is **pending**: `protocol.md` records the imported-study status; the new harness execution remains unapproved. The generic harness configuration must not be used to claim verified results. Follow the companion
 README for the original runnable workflow. No new experiment, human approval, human review or independent
 reproduction is claimed by this migration.
 
 The repository will hold the detailed methods and paper; the blog will provide a shorter accessible explanation. Original third-party licences and notices remain applicable; no blanket relicensing is applied.
+
+## Maintenance validation
+
+Run `make test` for companion regression tests and archive integrity checks. PR CI runs these checks; it does not retrain models or establish scientific reproduction. The [repository audit](evidence/repository-audit.md) records scope and limitations. Maintained companion code includes safeguards added after the historical run; the original downloadable code and results archives remain unchanged.

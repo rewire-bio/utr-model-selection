@@ -1,0 +1,11 @@
+{
+  "study": "utr-model-selection",
+  "revision": "72070de1792434da378f0655b0ca47b2ef918143",
+  "checked_at_utc": "2026-10-06T11:01:37.275844+00:00",
+  "scope": "Paper build only from clean Git archive; no scientific experiment or data/model fetch",
+  "command": "make paper-imported",
+  "exit": 0,
+  "published_pdf_sha256": "67f753f409f551c069afe317203cb64f55dc50030720320b4e011282f397bf95",
+  "clean_build_pdf_sha256": "67f753f409f551c069afe317203cb64f55dc50030720320b4e011282f397bf95",
+  "byte_identical": true
+}

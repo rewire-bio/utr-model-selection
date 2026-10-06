@@ -1,0 +1,21 @@
+[project]
+name = "utr-baselines"
+version = "0.1.0"
+description = "Compare cheap baselines, a small CNN and a frozen UTR-LM representation for mean ribosome load on the Sample et al. (2019) designed 5' UTR library (CPU; optional Apple MPS for CNN training)"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "numpy==1.26.4",
+    "pandas==2.2.3",
+    "pyarrow==17.0.0",
+    "scikit-learn==1.5.2",
+    "scipy==1.13.1",
+    "torch==2.4.1",
+    "matplotlib==3.9.2",
+]
+
+[project.optional-dependencies]
+test = ["pytest==8.3.3"]
+notebook = ["nbclient==0.10.0", "ipykernel==6.29.5", "nbformat==5.10.4"]
+
+[tool.uv]
+package = false

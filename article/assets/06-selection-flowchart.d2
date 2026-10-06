@@ -1,0 +1,77 @@
+# Selection flowchart for "Choosing a model for 5'UTR translation experiments".
+# Every terminal cites grouped-split numbers unless stated; all results exploratory.
+direction: down
+
+start: "5′UTR reporter library with measured MRL\nGoal: predict MRL for new sequences" {
+  shape: oval
+}
+
+scope: "Same kind of assay and scale?\nFixed leader, 50-nt insert, fixed CDS, polysome MRL,\nabout 70,000 labelled training records" {
+  shape: diamond
+}
+
+out: "Outside the tested scope\nRun a grouped comparison on your own labels" {
+  style.fill: "#e8e7e3"
+}
+
+train: "Can you train a small CNN?\n(one seed took 174–313 s on Apple MPS;\na full CPU-only run was not tested)" {
+  shape: diamond
+}
+
+ridge: "Cheap combined ridge\nGrouped MSE 0.776, R² 0.643\n20.7 s with features and alpha search, 0.45 GB" {
+  style.fill: "#d4f2e6"
+  style.stroke: "#1baf7a"
+}
+
+relatives: "Will candidates share a parent sequence or an\nidentical 20-nt substring with training sequences?" {
+  shape: diamond
+}
+
+cnn_rel: "One-hot CNN\nRandom split: MSE reduction +0.422 [+0.363, +0.488]\nprecision@150 gain +0.207 [+0.124, +0.292]" {
+  style.fill: "#dce9fa"
+  style.stroke: "#2a78d6"
+}
+
+use: "Main use: MRL values\nor a top-1% pick list?" {
+  shape: diamond
+}
+
+cnn_val: "One-hot CNN\nGrouped MSE 0.560 vs 0.776\nreduction +0.216 [+0.176, +0.252]" {
+  style.fill: "#dce9fa"
+  style.stroke: "#2a78d6"
+}
+
+picks: "No supported difference\nCNN precision gain +0.020 [−0.088, +0.132]\nInterval allows a gain of about 0.1 or a similar loss;\nequality is not shown. Ridge is the cheaper option" {
+  style.fill: "#d4f2e6"
+  style.stroke: "#2a78d6"
+  style.stroke-dash: 4
+}
+
+frozen: "Frozen UTR-LM input instead of one-hot:\nno supported difference on the grouped split (−0.010 [−0.034, +0.016])\nadds a 134.8 s CPU embedding pass and a 1.28 GB cache.\nWith a ridge head it was worse than cheap ridge\n(grouped MSE reduction −0.244 per-position, −0.363 mean).\nRandom split, CNN head: MSE +0.021 (below threshold), P@150 −0.127" {
+  style.fill: "#fbe3d8"
+  style.stroke: "#eb6834"
+  style.stroke-dash: 4
+}
+
+check: "Before trusting any model:\ncheck error by read-depth quartile and by sequence family;\nrun a CPU vs accelerator known-answer check"
+
+report: "Report paired intervals within one split" {
+  shape: oval
+}
+
+start -> scope
+scope -> out: no
+scope -> train: yes
+train -> ridge: no
+train -> relatives: yes
+relatives -> cnn_rel: yes
+relatives -> use: no or unknown
+use -> cnn_val: values
+use -> picks: pick list
+cnn_rel -> frozen: {style.stroke-dash: 4}
+cnn_val -> frozen: {style.stroke-dash: 4}
+ridge -> check
+cnn_rel -> check
+cnn_val -> check
+picks -> check
+check -> report

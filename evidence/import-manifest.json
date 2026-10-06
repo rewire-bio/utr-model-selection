@@ -1,0 +1,124 @@
+{
+  "source_revision": "a2ba98c1463162cc91a6376fcdfc71e0023f0703",
+  "source_repository": "rewire-bio/rewire.it",
+  "issue": 340,
+  "files": [
+    {
+      "source_path": "code/utr-baselines/NOTICE.md",
+      "path": "companion/NOTICE.md",
+      "sha256": "6f5a8e932c361d399bb88a63c2ed8a5215fc8a79f1cfba61ce003305fb96111a"
+    },
+    {
+      "source_path": "code/utr-baselines/PROTOCOL.md",
+      "path": "companion/PROTOCOL.md",
+      "sha256": "2be22d7a8eba6d32c47ebd5621566613561011e72516d910633f73b503d08326"
+    },
+    {
+      "source_path": "code/utr-baselines/README.md",
+      "path": "companion/README.md",
+      "sha256": "76687c40400517d451abfe2a77f9d475ddafdc44b872d0e6c7c7dc9a41feaca0"
+    },
+    {
+      "source_path": "code/utr-baselines/build_notebook.py",
+      "path": "companion/build_notebook.py",
+      "sha256": "6ce39c870b2035fcadd18db7619d52355f89ca5a58949ce0d1e81f7251fa6de2"
+    },
+    {
+      "source_path": "code/utr-baselines/describe_failures.py",
+      "path": "companion/describe_failures.py",
+      "sha256": "a721321f53ffeebbc14a8dad00090173f79af0875857853de32f6c19d8c6a493"
+    },
+    {
+      "source_path": "code/utr-baselines/make_figures.py",
+      "path": "companion/make_figures.py",
+      "sha256": "8daf5e147671462f12695e974dbf7eb9e59edb2354bc773a507eaf963ea2b2c1"
+    },
+    {
+      "source_path": "code/utr-baselines/pyproject.toml",
+      "path": "companion/pyproject.toml",
+      "sha256": "1bfb0d9c428b62fb6779de78579457366ef036bbc5b51c537e24318c809c7d25"
+    },
+    {
+      "source_path": "code/utr-baselines/test_utr_baselines.py",
+      "path": "companion/test_utr_baselines.py",
+      "sha256": "82172431cc8ba0739076ff7658af62cb4ce801d4050bc8437fd81c2d4d14d41d"
+    },
+    {
+      "source_path": "code/utr-baselines/tutorial.ipynb",
+      "path": "companion/tutorial.ipynb",
+      "sha256": "da36977151e9c6f886cdb7996d050d606a34d52bd615d767b7bc19291ee113d5"
+    },
+    {
+      "source_path": "code/utr-baselines/utr_baselines.py",
+      "path": "companion/utr_baselines.py",
+      "sha256": "317008d02c753c287d4d56b2bc3365f24a22e39d225f211a64653a0d0e244366"
+    },
+    {
+      "source_path": "code/utr-baselines/uv.lock",
+      "path": "companion/uv.lock",
+      "sha256": "7fa9143b7f33b2f4c2bdea8fcc494c628f82882e8e08f537fe60548b7348eadd"
+    },
+    {
+      "source_path": "code/utr-baselines/verify.py",
+      "path": "companion/verify.py",
+      "sha256": "c2df2c75f39988945650ebee5aa723c62a9ca4064fcdda4b611e0aa089fe6d3b"
+    },
+    {
+      "source_path": "posts/choosing-a-model-for-5utr-translation-experiments.md",
+      "path": "article/original.md",
+      "sha256": "3705cd10d8f8fb42ef305863d385b196f8095a01ba739a48329f5d1e3ba8572f"
+    },
+    {
+      "source_path": "public/downloads/choosing-a-model-for-5utr-translation-experiments/utr-baselines-results.zip",
+      "path": "downloads/utr-baselines-results.zip",
+      "sha256": "92d25123384142a28e211ae3d86967f958ddfc41ce19f0ae0fa722f53921ede9"
+    },
+    {
+      "source_path": "public/downloads/choosing-a-model-for-5utr-translation-experiments/utr-baselines.zip",
+      "path": "downloads/utr-baselines.zip",
+      "sha256": "31fb459c04f2cfd0bb664d94a864c748574ae56cbe73594d3932869063314c62"
+    },
+    {
+      "source_path": "public/images/choosing-a-model-for-5utr-translation-experiments/01-mrnabench-fig7-compositional-split-mrl.png",
+      "path": "article/assets/01-mrnabench-fig7-compositional-split-mrl.png",
+      "sha256": "837a76f856e66edfae60988c2e274fb8da24be6b52c9c8df1a83d3e56d4f6fdf"
+    },
+    {
+      "source_path": "public/images/choosing-a-model-for-5utr-translation-experiments/06-castillo-hair-fig1b-polysome-mpra-schematic.png",
+      "path": "article/assets/06-castillo-hair-fig1b-polysome-mpra-schematic.png",
+      "sha256": "c4ec80bcde0136d0e80bc5f020b01e74846892b1ced7875584ffe789e3adb1ba"
+    },
+    {
+      "source_path": "public/images/choosing-a-model-for-5utr-translation-experiments/06-selection-flowchart.d2",
+      "path": "article/assets/06-selection-flowchart.d2",
+      "sha256": "2cdf8c656dafdb6c2d3375bbf1edc2eb6dbc99236a6cbd661f8081af06ebf78b"
+    },
+    {
+      "source_path": "public/images/choosing-a-model-for-5utr-translation-experiments/06-selection-flowchart.svg",
+      "path": "article/assets/06-selection-flowchart.svg",
+      "sha256": "659892bbf16838d94f8c20b46da84fb80a979c494bab5abb4abf2a4dac91e11c"
+    },
+    {
+      "source_path": "public/images/choosing-a-model-for-5utr-translation-experiments/10-karollus-fig4-endogenous-translation-transfer.png",
+      "path": "article/assets/10-karollus-fig4-endogenous-translation-transfer.png",
+      "sha256": "ae51f20b272194f5f464d36c28bd5e1db983a019be7cd83edc135939981441d7"
+    },
+    {
+      "source_path": "public/images/choosing-a-model-for-5utr-translation-experiments/fig-accuracy-vs-cost.png",
+      "path": "article/assets/fig-accuracy-vs-cost.png",
+      "sha256": "11ffae6bb19ac8110eac66a817c266dc3c9cdcf4a6d6f6a8f9f3cc2781dedae0"
+    },
+    {
+      "source_path": "public/images/choosing-a-model-for-5utr-translation-experiments/fig-error-by-library-and-depth.png",
+      "path": "article/assets/fig-error-by-library-and-depth.png",
+      "sha256": "93e323dfcf5b6e8f2c061b841aa46db8fa3310b7db57cd433b057fb5522ce6ea"
+    },
+    {
+      "source_path": "public/images/choosing-a-model-for-5utr-translation-experiments/fig-paired-differences.png",
+      "path": "article/assets/fig-paired-differences.png",
+      "sha256": "5d51e3ebac3a9da755ab096a4acd4bbb8ccf44d8e11f6fa14f5cf2a61b38375f"
+    }
+  ],
+  "article_path_changes_only": true,
+  "status": "Historical evidence imported; not a new experiment or independent reproduction"
+}
